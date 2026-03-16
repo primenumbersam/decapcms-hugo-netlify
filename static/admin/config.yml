@@ -8,43 +8,32 @@ media_folder: "static/images"
 public_folder: "/images"
 
 collections:
-  - name: "pages"
-    label: "Main Pages"
+  - name: "main"
+    label: "Main Website"
+    delete: false
     files:
       - label: "Home Page"
-        name: "index"
+        name: "homepage"
         file: "content/_index.md"
         fields:
           - {label: "Title", name: "title", widget: "string"}
+          - {label: "Link Title", name: "linkTitle", widget: "string"}
           - {label: "Description", name: "description", widget: "string"}
           - {label: "Body", name: "body", widget: "markdown"}
 
-  - name: "books"
-    label: "Books (Sections)"
+  - name: "library"
+    label: "Library (Books & Chapters)"
     folder: "content"
-    # Matches content/book-*/_index.md
-    path: "{{slug}}/_index"
-    filter: {field: "type", value: "docs"}
     extension: "md"
     format: "frontmatter"
     create: true
-    fields:
-      - {label: "Layout", name: "type", widget: "hidden", default: "docs"}
-      - {label: "Title", name: "title", widget: "string"}
-      - {label: "Weight", name: "weight", widget: "number", default: 10}
-      - {label: "Body", name: "body", widget: "markdown"}
-
-  - name: "chapters"
-    label: "Chapters (Articles)"
-    folder: "content"
-    # Matches content/book-*/chapter-*.md
+    nested: true
+    # This filter ensures we only see items with 'type: docs' 
+    # (Books and Chapters have this, Root _index does not)
+    filter: {field: "type", value: "docs"}
     path: "{{dirname}}/{{slug}}"
-    filter: {field: "type", value: "docs"}
-    extension: "md"
-    format: "frontmatter"
-    create: true
     fields:
-      - {label: "Layout", name: "type", widget: "hidden", default: "docs"}
+      - {label: "Type", name: "type", widget: "hidden", default: "docs"}
       - {label: "Title", name: "title", widget: "string"}
       - {label: "Weight", name: "weight", widget: "number", default: 10}
       - {label: "Body", name: "body", widget: "markdown"}
