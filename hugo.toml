@@ -1,0 +1,61 @@
+baseURL = "/"
+title = "나의 도서관"
+theme = ["docsy"]
+
+# Language settings
+languageCode = "ko-kr"
+defaultContentLanguage = "ko"
+
+# Cascading type settings for books
+[[cascade]]
+  [cascade.fields]
+    type = "docs"
+  [cascade._target]
+    path = "{book-1/**,book-2/**}"
+
+[params]
+# Docsy specific params
+copyright = "Sam"
+
+# Menu configuration
+[[menu.main]]
+    name = "첫 번째 책"
+    url = "/book-1/"
+    weight = 10
+
+[[menu.main]]
+    name = "두 번째 책"
+    url = "/book-2/"
+    weight = 20
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+
+[build]
+  [build.transpilers]
+    sass = "dartsass"
+
+[module]
+  [[module.mounts]]
+    source = "assets"
+    target = "assets"
+  [[module.mounts]]
+    source = "i18n"
+    target = "i18n"
+  [[module.mounts]]
+    source = "static"
+    target = "static"
+  [[module.mounts]]
+    source = "node_modules/bootstrap/scss"
+    target = "assets/vendor/bootstrap/scss"
+  [[module.mounts]]
+    source = "node_modules/bootstrap/dist/js"
+    target = "assets/vendor/bootstrap/dist/js"
+  [[module.mounts]]
+    source = "node_modules/@fortawesome/fontawesome-free/scss"
+    target = "assets/vendor/Font-Awesome/scss"
+  [[module.mounts]]
+    source = "node_modules/@fortawesome/fontawesome-free/webfonts"
+    target = "static/webfonts"

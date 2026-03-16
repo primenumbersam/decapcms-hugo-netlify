@@ -1,0 +1,14 @@
+[build]
+  command = "hugo --gc --minify"
+  publish = "public"
+
+[build.environment]
+  HUGO_VERSION = "0.151.0"
+
+[[plugins]]
+  package = "netlify-plugin-hugo-cache-handler"
+
+[[redirects]]
+  from = "/admin/*"
+  to = "/admin/index.html"
+  status = 200

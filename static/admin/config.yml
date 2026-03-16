@@ -1,0 +1,41 @@
+backend:
+  name: git-gateway
+  branch: main # Branch to update (optional; defaults to main)
+
+publish_mode: editorial_workflow
+
+media_folder: "static/images" # Media files will be stored in static/images
+public_folder: "/images" # The src attribute for images in the content
+
+collections:
+  - name: "books"
+    label: "Books"
+    folder: "content"
+    filter: {field: "type", value: "docs"}
+    extension: "md"
+    format: "frontmatter"
+    create: true
+    slug: "{{slug}}"
+    path: "{{slug}}/_index"
+    fields:
+      - {label: "Layout", name: "type", widget: "hidden", default: "docs"}
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Weight", name: "weight", widget: "number", default: 10}
+      - {label: "Body", name: "body", widget: "markdown"}
+
+  - name: "chapters"
+    label: "Chapters"
+    folder: "content"
+    filter: {field: "type", value: "docs"}
+    extension: "md"
+    format: "frontmatter"
+    create: true
+    nested:
+      depth: 2
+    slug: "{{slug}}"
+    path: "{{dirname}}/{{slug}}"
+    fields:
+      - {label: "Layout", name: "type", widget: "hidden", default: "docs"}
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Weight", name: "weight", widget: "number", default: 10}
+      - {label: "Body", name: "body", widget: "markdown"}
