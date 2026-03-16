@@ -11,6 +11,7 @@ collections:
   - name: "main"
     label: "Main Website"
     delete: false
+    format: "frontmatter"
     files:
       - label: "Home Page"
         name: "homepage"
